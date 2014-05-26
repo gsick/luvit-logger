@@ -1,0 +1,5 @@
+# Eclipse crap
+*.project
+
+# Geany
+*.geany
