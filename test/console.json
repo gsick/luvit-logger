@@ -1,0 +1,14 @@
+[
+  {
+    "name": "console_logger",
+    "level": "error",
+    "loggers": [
+      {
+        "type": "console",
+        "color": true,
+        "level": "trace"
+      }
+    ]
+  }
+]
+

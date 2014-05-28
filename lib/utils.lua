@@ -15,9 +15,9 @@ local Levels = {
 }
 utils.Levels = Levels
 
-function utils.formatDate(format)
-  if format then
-    return Os.date(format)
+function utils.formatDate(dateformat)
+  if dateformat then
+    return Os.date(dateformat)
   else
     local s, ms, ns = Clock.time()
 
@@ -29,13 +29,19 @@ function utils.formatLevel(level)
   return '[' .. String.format("%-5s", level.name) .. ']'
 end
 
-function utils.finalString(format, level, s, ...)
+function utils.finalStringWithoutDate(level, s, ...)
 
-  return utils.formatDate(format) 
+  return utils.formatLevel(level) 
+        .. ' ' 
+        .. String.format(s, ...)
+end
+
+function utils.finalString(dateformat, level, s, ...)
+
+  return utils.formatDate(dateformat) 
         .. utils.formatLevel(level) 
         .. ' ' 
-        .. String.format(s, ...) 
-
+        .. String.format(s, ...)
 end
 
 return utils

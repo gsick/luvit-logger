@@ -1,0 +1,6 @@
+[submodule "test/modules/clocktime"]
+	path = test/modules/clocktime
+	url = https://github.com/gsick/luvit-clocktime.git
+[submodule "test/modules/redis"]
+	path = test/modules/redis
+	url = https://github.com/tadeuszwojcik/luvit-redis.git

@@ -15,9 +15,9 @@ function ConsoleLogger:initialize(options)
     self.level = Levels[String.lower(options.level)]
   end
 
-  self.format = nil
-  if options.format and type(options.format) == 'string' then
-    self.format = options.format
+  self.dateformat = nil
+  if options.dateformat and type(options.dateformat) == 'string' then
+    self.dateformat = options.dateformat
   end
   
   self.color = options.color or false
@@ -32,21 +32,26 @@ function ConsoleLogger:log(parent_level, level, s, ...)
     return
   end
   
+  local final_string = Utils.finalString(self.dateformat, level, s, ...)
   if self.color then
     if level.value == Levels['error'].value then
-      print(LuvUtils.colorize('red', Utils.finalString(self.format, level, s, ...)))
+      print(LuvUtils.colorize('red', final_string))
     elseif level.value == Levels['warn'].value then
-      print(LuvUtils.colorize('yellow', Utils.finalString(self.format, level, s, ...)))
+      print(LuvUtils.colorize('yellow', final_string))
     elseif level.value == Levels['info'].value then
-      print(Utils.finalString(self.format, level, s, ...))
+      print(final_string)
     elseif level.value == Levels['debug'].value then
-      print(LuvUtils.colorize('green', Utils.finalString(self.format, level, s, ...)))
+      print(LuvUtils.colorize('green', final_string))
     elseif level.value == Levels['trace'].value then
-      print(LuvUtils.colorize('cyan', Utils.finalString(self.format, level, s, ...)))
+      print(LuvUtils.colorize('cyan', final_string))
     end
   else 
-    print(Utils.finalString(self.format, level, s, ...))
+    print(final_string)
   end
+end
+
+function ConsoleLogger:close()
+
 end
 
 return ConsoleLogger

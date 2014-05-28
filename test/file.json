@@ -1,0 +1,34 @@
+[
+  {
+    "name": "file_logger",
+    "level": "info",
+    "loggers": [
+      {
+        "type": "file",
+        "path": "/tmp/test/log1.log",
+        "level": "error"
+      },
+      {
+        "type": "file",
+        "path": "/tmp/test/log2.log",
+        "level": "debug",
+        "dateformat": "%Y-%m-%dT%H:%M:%SZ%z"
+      },
+      {
+        "type": "file",
+        "path": "/tmp/test/log3.log"
+      }
+    ]
+  },
+  {
+    "name": "level_logger",
+    "level": "trace",
+    "loggers": [
+      {
+        "type": "file",
+        "path": "/tmp/test/log-level.log"
+      }
+    ]
+  }
+]
+

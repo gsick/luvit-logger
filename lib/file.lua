@@ -1,10 +1,15 @@
 local Object = require('core').Object
 local String = require('string')
 local Fs     = require('fs')
+local Path   = require('path')
 local Levels = require('./utils').Levels
 local Utils  = require('./utils')
 
-local function _noop() end
+local function _noop(err)
+  if err then
+    error('Logger error: ' .. err.message)
+  end
+end
 
 local FileLogger = Object:extend()
 
@@ -17,17 +22,21 @@ function FileLogger:initialize(options)
     self.level = Levels[String.lower(options.level)]
   end
 
-  self.format = nil
-  if options.format and type(options.format) == 'string' then
-    self.format = options.format
+  self.dateformat = nil
+  if options.dateformat and type(options.dateformat) == 'string' then
+    self.dateformat = options.dateformat
   end
 
   if type(options.path) ~= 'string' then
-    error("path: " .. Utils.dump(options.path) .. ' is not a string')
+    error('path: ' .. Utils.dump(options.path) .. ' is not a string')
   end
   self.path = options.path
   
-  self.fd = Fs.openSync(options.path, "a+")
+  local dirname = Path.dirname(self.path)
+  if not Fs.existsSync(dirname) then
+    Fs.mkdir(dirname, '0740')
+  end
+  self.fd = Fs.openSync(self.path, 'a+', '0640')
 
 end
 
@@ -35,11 +44,13 @@ function FileLogger:log(parent_level, level, s, ...)
 
   local final_level = self.level or parent_level
 
-  if level.value > final_level.value then
-    return
+  if level.value <= final_level.value then
+    Fs.write(self.fd, 0, Utils.finalString(self.dateformat, level, s, ...) .. '\n', _noop)
   end
-  
-  Fs.write(self.fd, 0, Utils.finalString(self.format, level, s, ...) .. '\n', _noop)
+end
+
+function FileLogger:close()
+  Fs.closeSync(self.fd)
 end
 
 return FileLogger

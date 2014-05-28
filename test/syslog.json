@@ -1,0 +1,16 @@
+[
+  {
+    "name": "syslog_logger",
+    "level": "trace",
+    "loggers": [
+      {
+        "type": "syslog",
+        "host": "localhost",
+        "port": "514",
+        "facility": "",
+        "level": "info"
+      }
+    ]
+  }
+]
+

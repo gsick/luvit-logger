@@ -87,6 +87,12 @@ for key,value in pairs(Levels) do
   end
 end
 
+function _Logger:close()
+  for i, value in ipairs(self.loggers) do
+    value:close()
+  end
+end
+
 local _loggers = {}
 
 local Logger = Object:extend()
@@ -117,6 +123,13 @@ function Logger.getLogger(name)
     error('Logger \"' .. name .. '\" not initialized')
   end
   return _loggers[name]
+end
+
+function Logger.close()
+  for key, value in pairs(_loggers) do
+    _loggers[key]:close()
+    _loggers[key] = nil
+  end
 end
 
 return Logger
