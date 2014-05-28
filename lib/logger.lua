@@ -17,9 +17,9 @@ function _Logger:initialize(options)
   self.name = options.name
   
   self.level = options.level and Levels[String.lower(options.level)] or Levels['error']
-  self.format = nil
-  if options.format and type(options.format) == 'string' then
-    self.format = options.format
+  self.dateformat = nil
+  if options.dateformat and type(options.dateformat) == 'string' then
+    self.dateformat = options.dateformat
   end
   
   self.loggers = {}
@@ -32,6 +32,10 @@ function _Logger:initialize(options)
     local options = value
     if type(options.type) ~= 'string' then
       error('logger type: ' .. Utils.dump(options.type) .. ' is not a string')
+    end
+    
+    if not options.dateformat then
+      options.dateformat = self.dateformat
     end
     
     if options.type == 'file' then
