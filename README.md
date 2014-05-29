@@ -24,6 +24,7 @@ Log in console, file, Redis.
     * [setLevel](#setlevel)
     * [getLevel](#getlevel)
     * [getName](#getname)
+* [Logrotate example](#logrotate-example)
 * [Installation](#installation)
 * [Tests](#tests)
 * [Authors](#authors)
@@ -289,6 +290,33 @@ local name = logger:getName()
 ```
 
 Return the name of the logger.
+
+## Logrotate example
+
+Example /etc/logrotate.d/project.conf
+
+```text
+/var/log/project/project.log {
+  daily
+  rotate 30
+  size 200k
+  create 640 root
+  compress
+  delaycompress
+  copytruncate
+  notifempty
+  missingok
+  olddir /somewhere/../logs
+}
+```
+
+Maybe you may want to move logrotate script from /etc/cron.daily to /etc/cron.hourly
+
+Test:
+```bash
+$ logrotate -d /etc/logrotate.d/project.conf
+$ logrotate -f /etc/logrotate.d/project.conf
+```
 
 ## Installation
 
