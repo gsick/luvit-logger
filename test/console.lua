@@ -1,7 +1,7 @@
 
 local Logger = require('logger')
 
-local logger = Logger:new('console.json')
+Logger:new('console.json')
 local log = Logger.getLogger('console_logger')
 
 log:error("Should be logged")

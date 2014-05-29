@@ -40,7 +40,7 @@ local function assertLine(logname)
   end)
 end
 
-local logger = Logger:new('file.json')
+Logger:new('file.json')
 local log = Logger.getLogger('level_logger')
 
 log:log(Logger.ERROR, 'Should be ERROR')

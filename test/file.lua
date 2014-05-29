@@ -28,7 +28,7 @@ local function assertLine(logname)
   end)
 end
 
-local logger = Logger:new('file.json')
+Logger:new('file.json')
 local log = Logger.getLogger('file_logger')
 
 log:error("Should be logged in log1 log2 log3")

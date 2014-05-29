@@ -53,6 +53,35 @@ logger:log(Logger.WARN, 'log warn')
 logger:log(Logger.INFO, 'log info')
 logger:log(Logger.DEBUG, 'log debug')
 logger:log(Logger.TRACE, 'log trace')
+
+logger:log(Logger.INFO, 'log %s', 'info')
+
+process:on('exit', function()
+  Logger.close()
+end)
+```
+
+```shell
+[2014-05-29][09:00:49.517][ERROR] log some error
+[2014-05-29][09:00:49.517][WARN ] log some warning
+[2014-05-29][09:00:49.517][INFO ] log some info
+[2014-05-29][09:00:49.517][DEBUG] log some debug info
+[2014-05-29][09:00:49.517][TRACE] log some trace info
+[2014-05-29][09:00:49.517][ERROR] log error
+[2014-05-29][09:00:49.517][WARN ] log warn
+[2014-05-29][09:00:49.520][INFO ] log info
+[2014-05-29][09:00:49.520][DEBUG] log debug
+[2014-05-29][09:00:49.520][TRACE] log trace
+[2014-05-29][09:00:49.520][INFO ] log info
+```
+
+In other luvit file:
+
+```lua
+local Logger = require('logger')
+
+local logger = Logger.getLogger('my_logger')
+logger:log('log something')
 ```
 
 ## Configuration
@@ -150,11 +179,19 @@ logger:log(Logger.TRACE, 'log trace')
 Logger:new(filename)
 ```
 
+Instanciate a new configuration.
+
+* `filename`: LUA_TSTRING, path to the configuration json file
+
 ### getLogger
 
 ```lua
 local logger = Logger.getLogger(name)
 ```
+
+Return a logger.
+
+* `name`: LUA_TSTRING, name of the logger
 
 ### close
 
@@ -162,11 +199,18 @@ local logger = Logger.getLogger(name)
 Logger.close()
 ```
 
+Close in a clean way (close file, disconnect redis).
+
 ### log
 
 ```lua
 logger:log(level, message, ...)
 ```
+
+Log a message.
+
+* `level`: `Logger.ERROR`, `Logger.WARN`, `Logger.INFO`, `Logger.DEBUG`, `Logger.TRACE`
+* `message`: LUA_TSTRING, could be a formatted string
 
 ### error
 
@@ -174,11 +218,19 @@ logger:log(level, message, ...)
 logger:error(message, ...)
 ```
 
+Log a message with ERROR level.
+
+* `message`: LUA_TSTRING, could be a formatted string
+
 ### warn
 
 ```lua
 logger:warn(message, ...)
 ```
+
+Log a message with WARN level.
+
+* `message`: LUA_TSTRING, could be a formatted string
 
 ### info
 
@@ -186,11 +238,19 @@ logger:warn(message, ...)
 logger:info(message, ...)
 ```
 
+Log a message with INFO level.
+
+* `message`: LUA_TSTRING, could be a formatted string
+
 ### debug
 
 ```lua
 logger:debug(message, ...)
 ```
+
+Log a message with DEBUG level.
+
+* `message`: LUA_TSTRING, could be a formatted string
 
 ### trace
 
@@ -198,11 +258,19 @@ logger:debug(message, ...)
 logger:trace(message, ...)
 ```
 
+Log a message with TRACE level.
+
+* `message`: LUA_TSTRING, could be a formatted string
+
 ### setLevel
 
 ```lua
 logger:setLevel(level)
 ```
+
+Change the level of the root.
+
+* `level`: `Logger.ERROR`, `Logger.WARN`, `Logger.INFO`, `Logger.DEBUG`, `Logger.TRACE`
 
 ### getLevel
 
@@ -210,11 +278,17 @@ logger:setLevel(level)
 local level = logger:getLevel()
 ```
 
+Get the level of the root.
+
+Return one of these: `Logger.ERROR`, `Logger.WARN`, `Logger.INFO`, `Logger.DEBUG`, `Logger.TRACE`
+
 ### getName
 
 ```lua
 local name = logger:getName()
 ```
+
+Return the name of the logger.
 
 ## Installation
 

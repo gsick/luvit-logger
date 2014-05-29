@@ -41,7 +41,7 @@ local client = Redis:new("127.0.0.1", 6379)
 
 client:command('DEL', 'log', function()
 
-  local logger = Logger:new('redis.json')
+  Logger:new('redis.json')
   local log = Logger.getLogger('redis_logger')
 
   log:log(Logger.ERROR, 'Should be ERROR')
