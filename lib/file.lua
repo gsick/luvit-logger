@@ -31,7 +31,7 @@ function FileLogger:initialize(options)
     error('path: ' .. Utils.dump(options.path) .. ' is not a string')
   end
   self.path = options.path
-  
+
   local dirname = Path.dirname(self.path)
   if not Fs.existsSync(dirname) then
     Fs.mkdir(dirname, '0740')

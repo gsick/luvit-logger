@@ -1,25 +1,30 @@
+#!/usr/bin/env luvit
+
 local os = require('os')
-
+local Timer = require('timer')
 local Logger = require('logger')
-
---local opt = {'file': {'name': 'my_logger', 'path': '/tmp/toto.log', 'format': '%Y-%m-%dT%H:%M:%SZ%z', 'level': 'INFO'}}
-
---[[
-{"name": "my_logger", "level": "error", "dateformat": "", "loggers": [
-  {"type": "file", "path": "/tmp/toto.log", "dateformat": "", "level": "info"},
-  {"type": "console", "color": false, "dateformat": "", "level": "info"},
-  {"type": "redis", "url": "/tmp/toto.log", "cmd":"publish toto %s", "rpush toto %s", "level": "info", "date": false},
-  {"type": "syslog", "host": "", "port": "", "facility": "", "level": "info"}
-]}
-]]
-
 local utils = require('utils')
+
+local native = require('uv_native')
+print(native.getProcessTitle())
+print(native.setProcessTitle('super_process'))
+
+--print(_G.process:__index(nil, title))
+print(utils.dump(_G.process))
+
+
+local path = require('path')
+---local p = Path:new('/', '/')
+local ttt = '/tmp/toto.log'
+p(path.dirname('/tmp/toto.log'))
+
+
 print(utils.dump(true))
 
 local opt = {name = 'my_logger', type = 'file', path = '/tmp/toto.log', level = 'info'}
 opt.format = '%Y-%m-%dT%H:%M:%SZ%z'
 
-local logger = Logger:new('conf.json')
+local logger = Logger:new('conf2.json')
 local log = Logger.getLogger('my_logger')
 
 --local log = Logger.getLogger(opt, "conf.json")
@@ -91,3 +96,9 @@ log:log(Logger.DEBUG, 'Should be DEBUG')
 log:log(Logger.TRACE, 'Should be TRACE')
 
 log:log(Logger.INFO, 'Should be %s quoted %q %c %X', 'formatted', 'yes', 76, 1024)
+
+Timer.setInterval(500, function()
+ log:log(Logger.INFO, 'Timer Timer Timer INFO') 
+end)
+
+--Logger.exit()

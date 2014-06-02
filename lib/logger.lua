@@ -6,7 +6,6 @@ local Utils  = require('utils')
 local Conf          = require('./conf')
 local FileLogger    = require('./file')
 local ConsoleLogger = require('./console')
-local RedisLogger   = require('./redis')
 local SyslogLogger  = require('./syslog')
 local Levels        = require('./utils').Levels
 
@@ -43,6 +42,7 @@ function _Logger:initialize(options)
     elseif options.type == 'console' then
       logger = ConsoleLogger:new(options)
     elseif options.type == 'redis' then
+      local RedisLogger = require('./redis')
       logger = RedisLogger:new(options)
     elseif options.type == 'syslog' then
       logger = SyslogLogger:new(options)
