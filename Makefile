@@ -17,6 +17,7 @@ test: test-init ${CLOCKTIMEDIR}/Makefile ${REDISDIR}/Makefile test-lua
 test-init:
 	mkdir -p test/modules
 	ln -s ../../../luvit-logger/ test/modules/logger
+	$(MAKE) -C ${CLOCKTIMEDIR}
 
 test-lua:
 	${LUVIT} test/console.lua
