@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gsick/luvit-logger.svg?branch=master)](https://travis-ci.org/gsick/luvit-logger)
+[![Build Status](https://travis-ci.org/gsick/luvit-logger.svg?branch=0.0.1)](https://travis-ci.org/gsick/luvit-logger)
 
 luvit-logger
 ============
