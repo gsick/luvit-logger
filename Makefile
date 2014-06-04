@@ -7,7 +7,7 @@ REDISDIR=test/modules/redis
 
 ${CLOCKTIMEDIR}/Makefile:
 	git submodule update --init ${CLOCKTIMEDIR}
-	$(MAKE)
+	$(MAKE) -C ${CLOCKTIMEDIR}
 
 ${REDISDIR}/Makefile:
 	git submodule update --init ${REDISDIR}
