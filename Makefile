@@ -19,12 +19,11 @@ test-init:
 	ln -s ../../../luvit-logger/ test/modules/logger
 
 test-lua:
-	cd test
-	${LUVIT} console.lua
-	${LUVIT} file.lua
-	${LUVIT} levels.lua
-	${LUVIT} root.lua
-#	${LUVIT} redis.lua
+	${LUVIT} test/console.lua
+	${LUVIT} test/file.lua
+	${LUVIT} test/levels.lua
+	${LUVIT} test/root.lua
+#	${LUVIT} test/redis.lua
 
 clean:
 	rm -fr test/modules
