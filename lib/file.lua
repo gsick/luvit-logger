@@ -30,7 +30,14 @@ function FileLogger:initialize(options)
   if type(options.path) ~= 'string' then
     error('path: ' .. Utils.dump(options.path) .. ' is not a string')
   end
-  self.path = options.path
+  
+
+  local is_absolute = options.path:sub(1, 1) == Path.sep
+  if not is_absolute then
+    self.path = Path.resolve(__dirname, options.path)
+  else
+    self.path = options.path
+  end
 
   local dirname = Path.dirname(self.path)
   if not Fs.existsSync(dirname) then
