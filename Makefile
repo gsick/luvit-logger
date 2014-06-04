@@ -5,13 +5,20 @@ LIBS   = $(shell $(LUVIT) --libs)
 CLOCKTIMEDIR=test/modules/clocktime
 REDISDIR=test/modules/redis
 
-test: test-lua
+${CLOCKTIMEDIR}/Makefile:
+	git submodule update --init ${CLOCKTIMEDIR}
+	$(MAKE)
+
+${REDISDIR}/Makefile:
+	git submodule update --init ${REDISDIR}
+
+test: test-init ${CLOCKTIMEDIR}/Makefile ${REDISDIR}/Makefile test-lua
+
+test-init:
+	mkdir -p test/modules
+	ln -s ../../../luvit-logger/ test/modules/logger
 
 test-lua:
-	mkdir -p test/modules
-	git submodule update --init ${REDISDIR}
-	git submodule update --init ${CRYPTODIR}
-	ln -s ../../../luvit-logger/ test/modules/logger
 	${LUVIT} test/console.lua
 
 clean:
