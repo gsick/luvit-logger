@@ -1,5 +1,6 @@
 #!/usr/bin/env luvit
 
+local PathJoin = require('path').join
 local Fs     = require('fs')
 local Redis  = require('redis')
 local String = require('string')
@@ -41,7 +42,7 @@ local client = Redis:new("127.0.0.1", 6379)
 
 client:command('DEL', 'log', function()
 
-  Logger:new('redis.json')
+  Logger:new(PathJoin(__dirname, 'redis.json'))
   local log = Logger.getLogger('redis_logger')
 
   log:log(Logger.ERROR, 'Should be ERROR')

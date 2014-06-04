@@ -1,7 +1,8 @@
 
+local PathJoin = require('path').join
 local Logger = require('logger')
 
-Logger:new('console.json')
+Logger:new(PathJoin(__dirname, 'console.json'))
 local log = Logger.getLogger('console_logger')
 
 log:error("Should be logged")

@@ -1,5 +1,6 @@
 #!/usr/bin/env luvit
 
+local PathJoin = require('path').join
 local Fs     = require('fs')
 local String = require('string')
 local Logger = require('logger')
@@ -28,7 +29,7 @@ local function assertLine(logname)
   end)
 end
 
-Logger:new('file.json')
+Logger:new(PathJoin(__dirname, 'file.json'))
 local log = Logger.getLogger('file_logger')
 
 log:error("Should be logged in log1 log2 log3")
