@@ -5,12 +5,12 @@ local Fs     = require('fs')
 local String = require('string')
 local Logger = require('logger')
 
-if Fs.existsSync('/tmp/test/log-level.log') then
-  Fs.truncateSync('/tmp/test/log-level.log')
+if Fs.existsSync(PathJoin(__dirname, 'tmp/log-level.log')) then
+  Fs.truncateSync(PathJoin(__dirname, 'tmp/log-level.log'))
 end
 
 local function assertLine(logname)
-  local data = Fs.readFileSync('/tmp/test/' .. logname .. '.log')
+  local data = Fs.readFileSync(PathJoin(__dirname, 'tmp/' .. logname .. '.log'))
   --print(data)
 
   local i = 0

@@ -7,7 +7,7 @@ local String = require('string')
 local Logger = require('logger')
 
 local function assertLine(logname)
-  local data = Fs.readFileSync('/tmp/test/' .. logname .. '.log')
+  local data = Fs.readFileSync(PathJoin(__dirname, '/tmp/' .. logname .. '.log'))
   --print(data)
 
   local i = 0

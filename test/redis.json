@@ -24,7 +24,7 @@
       },
       {
         "type": "file",
-        "path": "/tmp/test/log-redis.log"
+        "path": "/tmp/log-redis.log"
       }
     ]
   }

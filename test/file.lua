@@ -10,18 +10,18 @@ local Logger = require('logger')
 -- log2 level debug
 -- log3 inherit
 
-if Fs.existsSync('/tmp/test/log1.log') then
-  Fs.truncateSync('/tmp/test/log1.log')
+if Fs.existsSync(PathJoin(__dirname, 'tmp/log1.log')) then
+  Fs.truncateSync(PathJoin(__dirname, 'tmp/log1.log'))
 end
-if Fs.existsSync('/tmp/test/log2.log') then
-  Fs.truncateSync('/tmp/test/log2.log')
+if Fs.existsSync(PathJoin(__dirname, 'tmp/log2.log')) then
+  Fs.truncateSync(PathJoin(__dirname, 'tmp/log2.log'))
 end
-if Fs.existsSync('/tmp/test/log3.log') then
-  Fs.truncateSync('/tmp/test/log3.log')
+if Fs.existsSync(PathJoin(__dirname, 'tmp/log3.log')) then
+  Fs.truncateSync(PathJoin(__dirname, 'tmp/log3.log'))
 end
 
 local function assertLine(logname)
-  local data = Fs.readFileSync('/tmp/test/' .. logname .. '.log')
+  local data = Fs.readFileSync(PathJoin(__dirname, 'tmp/' .. logname .. '.log'))
   String.gsub(data, '(.-)\r?\n', function(s)
     if not String.find(s, logname) then
       error( logname .. ' not found in ' .. logname .. '.log')

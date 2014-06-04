@@ -5,18 +5,18 @@
     "loggers": [
       {
         "type": "file",
-        "path": "/tmp/test/log1.log",
+        "path": "tmp/log1.log",
         "level": "error"
       },
       {
         "type": "file",
-        "path": "/tmp/test/log2.log",
+        "path": "tmp/log2.log",
         "level": "debug",
         "dateformat": "%Y-%m-%dT%H:%M:%SZ%z"
       },
       {
         "type": "file",
-        "path": "/tmp/test/log3.log"
+        "path": "tmp/log3.log"
       }
     ]
   },
@@ -26,7 +26,7 @@
     "loggers": [
       {
         "type": "file",
-        "path": "/tmp/test/log-level.log"
+        "path": "tmp/log-level.log"
       }
     ]
   }

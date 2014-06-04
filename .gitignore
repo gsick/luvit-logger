@@ -3,3 +3,6 @@
 
 # Geany
 *.geany
+
+# Test
+test/tmp
