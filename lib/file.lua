@@ -34,7 +34,7 @@ function FileLogger:initialize(options)
 
   local is_absolute = options.path:sub(1, 1) == Path.sep
   if not is_absolute then
-    self.path = Path.resolve(__dirname, options.path)
+    self.path = Path.join(process.env.PWD, options.path)
   else
     self.path = options.path
   end
