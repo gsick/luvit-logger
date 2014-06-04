@@ -14,13 +14,13 @@ local _Logger = Object:extend()
 function _Logger:initialize(options)
 
   self.name = options.name
-  
+
   self.level = options.level and Levels[String.lower(options.level)] or Levels['error']
   self.dateformat = nil
   if options.dateformat and type(options.dateformat) == 'string' then
     self.dateformat = options.dateformat
   end
-  
+
   self.loggers = {}
   if type(options.loggers) ~= 'table' then
     error('Loggers: ' .. Utils.dump(options.loggers) .. ' is not a table')
@@ -32,11 +32,11 @@ function _Logger:initialize(options)
     if type(options.type) ~= 'string' then
       error('logger type: ' .. Utils.dump(options.type) .. ' is not a string')
     end
-    
+
     if not options.dateformat then
       options.dateformat = self.dateformat
     end
-    
+
     if options.type == 'file' then
       logger = FileLogger:new(options)
     elseif options.type == 'console' then
@@ -50,11 +50,9 @@ function _Logger:initialize(options)
       error('logger type: ' .. Utils.dump(options.type) 
         .. ' should be \"file\", \"console\", \"redis\" or \"syslog\"')
     end
-  
+
     self.loggers[index] = logger
   end
-  
-  
 end
 
 function _Logger:getName()
@@ -110,14 +108,18 @@ Logger.TRACE = Levels['trace']
 function Logger:initialize(path)
   local conf = Conf:new(path)
   local json = conf:read()
-  
+
+  if not json then
+    error('error in json configuration file')
+  end
+
   for key, value in pairs(json) do
   
     local options = value
     if type(options.name) ~= 'string' then
       error('logger name: ' .. Utils.dump(options.name) .. ' is not a string')
     end
-    
+
     _loggers[options.name] = _Logger:new(options)
   end
 end

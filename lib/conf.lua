@@ -8,6 +8,8 @@ local Conf = Object:extend()
 function Conf:initialize(path)
   if Fs.existsSync(path) then
     self.path = path
+  else
+    error('No configuration file found')
   end
 end
 
