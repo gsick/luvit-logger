@@ -12,12 +12,12 @@ ${CLOCKTIMEDIR}/Makefile:
 ${REDISDIR}/Makefile:
 	git submodule update --init ${REDISDIR}
 
-test: test-init ${CLOCKTIMEDIR}/Makefile ${REDISDIR}/Makefile test-lua
+test: test-init test-lua
 
 test-init:
 	mkdir -p test/modules
 	ln -s ../../../luvit-logger/ test/modules/logger
-	$(MAKE) -C ${CLOCKTIMEDIR} LUVIT=$LUVIT
+	$(MAKE) -C ${CLOCKTIMEDIR} LUVIT=${LUVIT}
 
 test-lua:
 	${LUVIT} test/console.lua
