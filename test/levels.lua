@@ -13,29 +13,36 @@ local function assertLine(logname)
   local data = Fs.readFileSync(PathJoin(__dirname, 'tmp/' .. logname .. '.log'))
   --print(data)
 
+  local error = false
+  local warn = false
+  local info = false
+  local debug = false
+  local trace = false
   local i = 0
   String.gsub(data, '(.-)\r?\n', function(s)
     i = i + 1
-    
-    if i == 1 then
-      if not String.find(s, 'ERROR') then
-        error('ERROR not found in ' .. logname .. '.log')
-      end
-    elseif i == 2 then
-      if not String.find(s, 'WARN') then
-        error('WARN not found in ' .. logname .. '.log')
-      end
-    elseif i == 3 then
-      if not String.find(s, 'INFO') then
-        error('INFO not found in ' .. logname .. '.log')
-      end
-    elseif i == 4 then
-      if not String.find(s, 'DEBUG') then
-        error('DEBUG not found in ' .. logname .. '.log')
-      end
-    elseif i == 5 then
-      if not String.find(s, 'TRACE') then
-        error('TRACE not found in ' .. logname .. '.log')
+
+    if String.find(s, 'ERROR') then
+      error = true
+    end
+    if String.find(s, 'WARN') then
+      warn = true
+    end
+    if String.find(s, 'INFO') then
+      info = true
+    end
+    if String.find(s, 'DEBUG') then
+      debug = true
+    end
+    if String.find(s, 'TRACE') then
+      trace = true
+    end
+    if i > 5 then
+      error('too much line found in ' .. logname .. '.log')
+    end
+    if i == 5 then
+      if not (error and warn and info and debug and trace) then
+        error('one level missing in ' .. logname .. '.log')
       end
     end
   end)

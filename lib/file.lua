@@ -30,7 +30,6 @@ function FileLogger:initialize(options)
   if type(options.path) ~= 'string' then
     error('path: ' .. Utils.dump(options.path) .. ' is not a string')
   end
-  
 
   local is_absolute = options.path:sub(1, 1) == Path.sep
   if not is_absolute then
@@ -43,10 +42,10 @@ function FileLogger:initialize(options)
   if not Fs.existsSync(dirname) then
     -- TODO: recursiv mkdir
     Fs.mkdir(dirname, '0740', function()
-      self.fd = Fs.openSync(self.path, 'a+', '0640')
+      self.fd = Fs.openSync(self.path, 'a', '0640')
     end)
   else
-    self.fd = Fs.openSync(self.path, 'a+', '0640')
+    self.fd = Fs.openSync(self.path, 'a', '0640')
   end
 end
 
