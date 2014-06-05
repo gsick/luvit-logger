@@ -41,10 +41,13 @@ function FileLogger:initialize(options)
 
   local dirname = Path.dirname(self.path)
   if not Fs.existsSync(dirname) then
-    Fs.mkdir(dirname, '0740')
+    -- TODO: recursiv mkdir
+    Fs.mkdir(dirname, '0740', function()
+      self.fd = Fs.openSync(self.path, 'a+', '0640')
+    end)
+  else
+    self.fd = Fs.openSync(self.path, 'a+', '0640')
   end
-  self.fd = Fs.openSync(self.path, 'a+', '0640')
-
 end
 
 function FileLogger:log(parent_level, level, s, ...)
